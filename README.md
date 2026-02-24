@@ -1,56 +1,62 @@
-# EkMat - Zero-Knowledge Blockchain Voting Platform
+# 🗳️ EkMat - Zero-Knowledge Blockchain Voting Platform
 
-EkMat is a privacy-first e-voting system Pilot built on Ethereum. It uses **Zero-Knowledge Proofs (ZKPs)** to allow voters to prove they are eligible to vote *without* revealing their identity on the blockchain.
+EkMat is a privacy-first e-voting system built on Ethereum. It leverages **Zero-Knowledge Proofs (ZKPs)** to enable voters to prove their eligibility without revealing their identity on the blockchain.
 
-## 🏗 System Architecture (How it Works)
-This project uses a modern web3 stack. Here is why we use each tool:
+---
 
-### 1. The Blockchain Layer
-- **Ganache**: The **Local Blockchain Network**. Think of this as our private "server" where the election data lives during development.
-- **Hardhat**: The **Development Toolbelt**. We use Hardhat to *compile* our Solidity code and *deploy* it to Ganache. We do **not** use the Hardhat Network for running the chain, only for compiling.
-- **Solidity Contracts**: The "Brain". Handles vote counting, double-voting prevention, and election management.
+## 🏗️ Project Architecture
 
-### 2. The Privacy Layer (ZK-SNARKs)
-- **Circom**: Used to write the cryptographic "Circuit" that defines the rules of a valid vote.
-- **SnarkJS**: runs in the browser to generate the "Eligible Voter Proof" locally on the user's device.
+- **Blockchain**: Local Ganache network for decentralized state.
+- **Privacy**: Circom for ZK circuits and SnarkJS for client-side proof generation.
+- **Frontend**: React + Vite (Typescript) with Framer Motion for a premium UI.
+- **Backend**: Express.js relay with AI-powered assistance (EkSaathi).
 
-### 3. The Application Layer
-- **Frontend (React + Vite)**: Where voters connect wallets and cast votes.
-- **Backend (Express)**: Acts as a relay and storage for off-chain metadata (like candidate photos via IPFS).
+---
 
-## 📂 Project Structure
-Access the code in these workspaces:
-- `contracts/`: Smart contracts (`EkMatVoting.sol`) and tests.
-- `circuits/`: ZK Circuit definitions (`.circom`).
-- `frontend/`: React voter portal and Admin dashboard.
-- `backend/`: Node.js API database and auth services.
+## 🚀 Quick Start Tutorial
 
-## 🚀 Setup & Installation
+Follow these steps in order to get the project running locally.
 
-### Prerequisites
-- Node.js (v18+)
-- npm
+### 📋 Prerequisites
+- **Node.js**: v18 or higher
+- **npm**: v9 or higher
 
-### Step 1: Install Dependencies
+### 🛠️ Step 1: Clone and Install
 ```bash
+# Install all dependencies (Monorepo setup)
 npm install
 ```
 
-### Step 2: Start the Local Blockchain
-This starts **Ganache**, a persistent blockchain that mimics Ethereum on your machine.
+### ⚙️ Step 2: Environment Setup
+1. Copy the example environment file:
+   ```bash
+   cp .env.example .env
+   ```
+2. Open `.env` and add your **GEMINI_API_KEY**.
+3. (Optional) Add your Pinata keys if you want to test candidate photo uploads.
+
+### ⛓️ Step 3: Start the Local Blockchain
+In a **new terminal**, start the persistent local blockchain:
 ```bash
 npm run chain
 ```
-*Keep this terminal running! It listens on port 8545.*
+*Leave this running. It acts as your local Ethereum network on `http://127.0.0.1:8545`.*
 
-### Step 3: Deploy Smart Contracts
-This uses **Hardhat** to compile the contracts and send them to your running Ganache chain.
+### 🔐 Step 4: Setup ZK Circuits
+In your **main terminal**, run the development setup for circuits:
+```bash
+npm run setup:circuits
+```
+*Note: In development, this generates mock circuit files to bypass the long compilation process.*
+
+### 📜 Step 5: Deploy Smart Contracts
+Deploy the voting contracts to your local chain:
 ```bash
 npm run deploy:ganache
 ```
 
-### Step 4: Start the App
-Open two new terminals for the app services:
+### 💻 Step 6: Launch the Application
+Open **two more terminals** for the frontend and backend:
 
 **Start Backend:**
 ```bash
@@ -62,11 +68,25 @@ npm run dev:backend
 npm run dev:frontend
 ```
 
-## 🖥 Usage
-- **Voter Portal**: http://localhost:5173
-- **Admin Dashboard**: http://localhost:5173/admin
+---
 
-## 🛠 Technology Stack
-- **Languages**: TypeScript, Solidity, Circom
-- **Frameworks**: React, Express, Hardhat
-- **Tools**: Ganache (Chain), SnarkJS (Proof), Winston (Logs)
+## 🖥️ Usage Guide
+
+- **Voter Portal**: [http://localhost:5173](http://localhost:5173) - Connect your wallet (Metamask) to cast your vote.
+- **Admin Dashboard**: [http://localhost:5173/admin](http://localhost:5173/admin) - Setup elections and manage candidates.
+- **EkSaathi Chatbot**: Click the floating bubble on the home page for AI-powered voting assistance.
+
+---
+
+## 🛠️ Technology Stack
+| Layer | Technology |
+|---|---|
+| **Smart Contracts** | Solidity, Hardhat, Ganache |
+| **Privacy (ZK)** | Circom, SnarkJS |
+| **Frontend** | React, Vite, Framer Motion, Ethers.js |
+| **Backend** | Express, Node.js, Google Gemini AI |
+| **Styling** | Vanilla CSS, Lucide Icons |
+
+---
+
+Developed with ❤️ by the **EkMat Team**.
